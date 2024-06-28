@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+// Screens.tsx
+import React, { useState, useEffect } from 'react';
 import SidebarMartin from '../DesignEditor/components/SidebarMartin';
+import useSamsungTVScanner from '~/useSamsungTVScanner';
 
 interface Screen {
   id: number;
@@ -15,11 +17,16 @@ const getScreens = (count: number): Screen[] =>
   }));
 
 const Screens: React.FC = () => {
+  const { samsungTVs, loading, scanNetwork } = useSamsungTVScanner();
   const [screens, setScreens] = useState<Screen[]>(getScreens(10));
   const [emptyScreens, setEmptyScreens] = useState<Screen[]>([]);
   const [draggedScreen, setDraggedScreen] = useState<Screen | null>(null);
   const [sourceList, setSourceList] = useState<Screen[] | null>(null);
   const [setSourceListFn, setSetSourceListFn] = useState<React.Dispatch<React.SetStateAction<Screen[]>> | null>(null);
+
+  useEffect(() => {
+    scanNetwork(); // Scan the network when the component mounts
+  }, [scanNetwork]);
 
   const onDragStart = (event: React.DragEvent<HTMLDivElement>, screen: Screen, list: Screen[], setList: React.Dispatch<React.SetStateAction<Screen[]>>) => {
     setDraggedScreen(screen);
@@ -54,23 +61,32 @@ const Screens: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
+    <div style={{ display: "flex", height: "100vh" }}>
       <SidebarMartin />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '50px', width: '100%', overflow: 'hidden' }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          marginTop: "50px",
+          width: "100%",
+          overflow: "hidden",
+        }}
+      >
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start',
-            background: 'lightgrey',
-            padding: '8px',
-            width: '50%', // Full width
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            background: "lightgrey",
+            padding: "8px",
+            width: "50%", // Full width
             height: "30%",
 
-            overflowX: 'auto', // Enable horizontal scrolling
-            overflowY: 'hidden', // Hide vertical scrollbar
-            maxHeight: '50vh', // Limit the max height of the container
+            overflowX: "auto", // Enable horizontal scrolling
+            overflowY: "hidden", // Hide vertical scrollbar
+            maxHeight: "50vh", // Limit the max height of the container
           }}
           onDragOver={onDragOver}
           onDrop={(e) => onDrop(e, emptyScreens, setEmptyScreens)} // Empty container on top
@@ -81,36 +97,36 @@ const Screens: React.FC = () => {
               draggable
               onDragStart={(e) => onDragStart(e, screen, emptyScreens, setEmptyScreens)}
               style={{
-                userSelect: 'none',
-                padding: '16px',
-                margin: '0 8px',
-                width: '200px', // Fixed width
-                minWidth: '200px', // Minimum width
-                backgroundColor: '#456C86',
-                color: 'white',
-                cursor: 'move',
+                userSelect: "none",
+                padding: "16px",
+                margin: "0 8px",
+                width: "200px", // Fixed width
+                minWidth: "200px", // Minimum width
+                backgroundColor: "#456C86",
+                color: "white",
+                cursor: "move",
                 flexShrink: 0, // Prevent items from shrinking when space is limited
               }}
             >
-              <img src={screen.img} alt={screen.name} style={{ width: '100%' }} />
+              <img src={screen.img} alt={screen.name} style={{ width: "100%" }} />
               <div>{screen.name}</div>
             </div>
           ))}
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start',
-            background: 'lightgrey',
-            padding: '8px',
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            background: "lightgrey",
+            padding: "8px",
             marginTop: "1%",
-            width: '50%', // Full width
+            width: "50%", // Full width
             height: "30%",
-            overflowX: 'auto', // Enable horizontal scrolling
-            overflowY: 'hidden', // Hide vertical scrollbar
-             // Limit the max height of the container
+            overflowX: "auto", // Enable horizontal scrolling
+            overflowY: "hidden", // Hide vertical scrollbar
+            // Limit the max height of the container
           }}
           onDragOver={onDragOver}
           onDrop={(e) => onDrop(e, screens, setScreens)} // Full container on bottom
@@ -121,24 +137,61 @@ const Screens: React.FC = () => {
               draggable
               onDragStart={(e) => onDragStart(e, screen, screens, setScreens)}
               style={{
-                userSelect: 'none',
-                padding: '16px',
-                margin: '0 8px',
-                width: '200px', // Fixed width
-                minWidth: '200px', // Minimum width
-                backgroundColor: '#456C86',
-                color: 'white',
-                cursor: 'move',
+                userSelect: "none",
+                padding: "16px",
+                margin: "0 8px",
+                width: "200px", // Fixed width
+                minWidth: "200px", // Minimum width
+                backgroundColor: "#456C86",
+                color: "white",
+                cursor: "move",
                 flexShrink: 0, // Prevent items from shrinking when space is limited
               }}
             >
-              <img src={screen.img} alt={screen.name} style={{ width: '100%' }} />
+              <img src={screen.img} alt={screen.name} style={{ width: "100%" }} />
               <div>{screen.name}</div>
             </div>
           ))}
         </div>
+
+        <button
+          type="button"
+          onClick={scanNetwork}
+          style={{
+            width: "150px",
+            height: "40px",
+            background: "blue",
+            color: "white",
+            border: "1px #ccc",
+            borderRadius: "5px",
+            cursor: "pointer",
+            marginLeft: "23%",
+            marginTop: "1%"
+          }}
+        >
+          {loading ? 'Escaneando...' : 'Escanear'}
+        </button>
+
+        <div
+          style={{
+            marginTop: "20px",
+            width: "50%",
+            background: "lightgrey",
+            padding: "8px",
+          }}
+        >
+          <h2>Samsung TVs Detected:</h2>
+          {samsungTVs.length > 0 ? (
+            <ul>
+              {samsungTVs.map((tv, index) => (
+                <li key={index}>{tv.name} - {tv.ip}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No Samsung TVs found.</p>
+          )}
+        </div>
       </div>
-      
     </div>
   );
 };
