@@ -45,20 +45,10 @@ export default function () {
         alignItems: "center",
       }}
     >
-      <div>
-        <Button kind={KIND.tertiary} size={SIZE.compact}>
-          <Icons.Layers size={20} />
-        </Button>
-      </div>
+
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <Button kind={KIND.tertiary} size={SIZE.compact}>
-          <Icons.Expand size={16} />
-        </Button>
-        <Button kind={KIND.tertiary} size={SIZE.compact}>
-          <Icons.Compress size={16} />
-        </Button>
         <Button kind={KIND.tertiary} size={SIZE.compact}
-          onClick={() => handleChange("zoomRatio", options.zoomRatio - 20)}>
+          onClick={() => handleChange("zoomRatio", options.zoomRatio - 10)}>
           <Icons.RemoveCircleOutline size={24} />
         </Button>
         <Slider
@@ -89,7 +79,7 @@ export default function () {
           max={zoomMax}
         />
         <Button kind={KIND.tertiary} size={SIZE.compact}
-          onClick={() => handleChange("zoomRatio", options.zoomRatio + 20)}>
+          onClick={() => handleChange("zoomRatio", options.zoomRatio + 10)}>
           <Icons.AddCircleOutline size={24} />
         </Button>
         <Input
@@ -111,16 +101,10 @@ export default function () {
       </div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
         <Button kind={KIND.tertiary} size={SIZE.compact}>
-          <Icons.Refresh size={16} />
-        </Button>
-        <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Undo size={22} />
         </Button>
         <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Redo size={22} />
-        </Button>
-        <Button kind={KIND.tertiary} size={SIZE.compact}>
-          <Icons.TimePast size={16} />
         </Button>
       </div>
     </Block>

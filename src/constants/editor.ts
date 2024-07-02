@@ -24,8 +24,8 @@ export const SAMPLE_TEMPLATES = [
         strokeWidth: 0,
         left: 0,
         top: 0,
-        width: 1200,
-        height: 1200,
+        width: 1920,
+        height: 1080,
         opacity: 1,
         originX: "left",
         originY: "top",
@@ -191,8 +191,8 @@ export const SAMPLE_TEMPLATES = [
       },
     ],
     frame: {
-      width: 1200,
-      height: 1200,
+      width: 1920,
+      height: 1080,
     },
     metadata: {
       animated: false,
@@ -211,8 +211,8 @@ export const SAMPLE_TEMPLATES = [
         strokeWidth: 0,
         left: 0,
         top: 0,
-        width: 1200,
-        height: 1200,
+        width: 1920,
+        height: 1080,
         opacity: 1,
         originX: "left",
         originY: "top",
@@ -361,8 +361,8 @@ export const SAMPLE_TEMPLATES = [
       },
     ],
     frame: {
-      width: 1200,
-      height: 1200,
+      width: 1920,
+      height: 1080,
     },
     metadata: {
       animated: false,
@@ -381,8 +381,8 @@ export const SAMPLE_TEMPLATES = [
         strokeWidth: 0,
         left: 0,
         top: 0,
-        width: 1200,
-        height: 1200,
+        width: 1920,
+        height: 1080,
         opacity: 1,
         originX: "left",
         originY: "top",
@@ -531,8 +531,8 @@ export const SAMPLE_TEMPLATES = [
       },
     ],
     frame: {
-      width: 1200,
-      height: 1200,
+      width: 1920,
+      height: 1080,
     },
     metadata: {
       animated: false,
@@ -3535,89 +3535,6 @@ const textComponent2 = {
 }
 export const textComponents = [textComponent1, textComponent2]
 
-export const sampleFrames = [
-  {
-    id: 1,
-    name: "Presentation (4:3)",
-    width: 1024,
-    height: 768,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-presentation-4x3.svg",
-  },
-  {
-    id: 2,
-    name: "Presentation (16:9)",
-    width: 1920,
-    height: 1080,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-presentation-16x9.svg",
-  },
-  {
-    id: 3,
-    name: "Social Media Story",
-    width: 1080,
-    height: 1920,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-social-media-story.svg",
-  },
-  {
-    id: 4,
-    name: "Instagram Post",
-    width: 1080,
-    height: 1080,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-social-media-post.svg",
-  },
-  {
-    id: 5,
-    name: "Facebook Post",
-    width: 1200,
-    height: 1200,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-social-media-post.svg",
-  },
-  {
-    id: 6,
-    name: "Facebook Cover / Page Cover",
-    width: 1702,
-    height: 630,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-facebook-event-cover.svg",
-  },
-  {
-    id: 7,
-    name: "Facebook Event Cover",
-    width: 1920,
-    height: 1080,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-facebook-event-cover.svg",
-  },
-  {
-    id: 8,
-    name: "YouTube Channel Art",
-    width: 2560,
-    height: 1440,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-youtube-channel-art.svg",
-  },
-  {
-    id: 9,
-    name: "YouTube Thumbnail",
-    width: 1280,
-    height: 720,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-youtube-thumbnail.svg",
-  },
-  {
-    id: 10,
-    name: "Twitter Post",
-    width: 1200,
-    height: 675,
-    unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-twittter-post.svg",
-  },
-]
-
 const layers: ILayer[] = []
 
 const graphicTemplate = {
@@ -3628,28 +3545,3 @@ const graphicTemplate = {
   content: [...layers],
 }
 
-const presentationTemplate = {
-  id: "",
-  name: "",
-  type: "PRESENTATION",
-  frame: {},
-  content: [
-    {
-      duration: 1000,
-      layers: [],
-    },
-  ],
-}
-
-const VideoTemplate = {
-  id: "",
-  name: "",
-  type: "VIDEO",
-  frame: {},
-  content: [
-    {
-      duration: 1000,
-      layers: [],
-    },
-  ],
-}

@@ -4,7 +4,6 @@ import useAppContext from "~/hooks/useAppContext"  // Importa un hook personaliz
 import Loading from "./components/Loading"  // Importa un componente de carga
 import { editorFonts } from "./constants/fonts"  // Importa la lista de fuentes del editor
 import { getFonts } from "./store/slices/fonts/actions"  // Importa la acción para obtener fuentes
-import { getPixabayResources } from "./store/slices/resources/actions"  // Importa la acción para obtener recursos de Pixabay
 import { getUploads } from "./store/slices/uploads/actions"  // Importa la acción para obtener subidas
 import { useAppDispatch } from "./store/store"  // Importa el hook personalizado para el despacho de acciones
 
@@ -50,7 +49,6 @@ function Container({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     dispatch(getFonts())
     dispatch(getUploads())
-    dispatch(getPixabayResources())
     loadFonts()
     setTimeout(() => {
       setLoaded(true)

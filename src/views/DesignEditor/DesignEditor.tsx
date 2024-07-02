@@ -1,8 +1,6 @@
 import useEditorType from "~/hooks/useEditorType"  // Importa un hook personalizado para obtener el tipo de editor actual
 import SelectEditor from "./SelectEditor"  // Importa el componente SelectEditor
 import GraphicEditor from "./GraphicEditor"  // Importa el componente GraphicEditor
-import PresentationEditor from "./PresentationEditor"  // Importa el componente PresentationEditor
-import VideoEditor from "./VideoEditor"  // Importa el componente VideoEditor
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"  // Importa un hook personalizado para el contexto del editor de diseño
 import Preview from "./components/Preview"  // Importa el componente Preview
 import Sidebar from "./components/SidebarMartin"
@@ -23,8 +21,6 @@ function DesignEditor() {
         {
 
           NONE: <SelectEditor />,  // Renderiza SelectEditor si el tipo de editor es NONE
-          PRESENTATION: <PresentationEditor />,  // Renderiza PresentationEditor si el tipo de editor es PRESENTATION
-          VIDEO: <VideoEditor />,  // Renderiza VideoEditor si el tipo de editor es VIDEO
           GRAPHIC: <GraphicEditor />,  // Renderiza GraphicEditor si el tipo de editor es GRAPHIC
         }[editorType]
       }
