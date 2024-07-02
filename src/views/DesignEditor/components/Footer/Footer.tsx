@@ -8,10 +8,6 @@ export default function () {
 
   if (editorType === "NONE") {
     return <></>
-  } else if (editorType === "PRESENTATION") {
-    return <Presentation />
-  } else if (editorType === "VIDEO") {
-    return <Video />
   } else {
     return <Graphic />
   }
