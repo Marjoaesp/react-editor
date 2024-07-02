@@ -23,7 +23,6 @@ import SwapHorizontal from "./SwapHorizontal"
 import ArrowBackOutline from "./ArrowBackOutline"
 import Underline from "./Underline"
 import Add from "./Add"
-import Video from "./Video"
 import DisplayScreen from "./DisplayScreen"
 import Playlist from "./Playlist"
 import Libreria from "./Libreria"
@@ -46,7 +45,6 @@ class Icons {
   static Templates = Templates
   static Search = Search
   static Images = Images
-  static Videos = Video
   static Graphics = Graphics
   static Pixabay = Pixabay
   static Uploads = Uploads

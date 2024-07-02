@@ -1,5 +1,5 @@
 import { useStyletron } from "baseui"
-import { BASE_ITEMS, VIDEO_PANEL_ITEMS } from "~/constants/app-options"
+import { BASE_ITEMS } from "~/constants/app-options"
 import useAppContext from "~/hooks/useAppContext"
 import { styled } from "baseui"
 import Icons from "~/components/Icons"
@@ -19,7 +19,7 @@ function PanelsList() {
   const { activePanel } = useAppContext()
   const { t } = useTranslation("editor")
   const editorType = useEditorType()
-  const PANEL_ITEMS = editorType === "VIDEO" ? VIDEO_PANEL_ITEMS : BASE_ITEMS
+  const PANEL_ITEMS = BASE_ITEMS
   return (
     <Container>
       <Scrollable autoHide={true}>

@@ -39,20 +39,6 @@ export default function () {
         </Block>
       </Block>
       <Scrollable>
-        {/* <Block padding={"0 1.5rem"}>
-          <Button
-            size={SIZE.compact}
-            overrides={{
-              Root: {
-                style: {
-                  width: "100%",
-                },
-              },
-            }}
-          >
-            Computer
-          </Button>
-        </Block> */}
         <Block>
           <Block $style={{ display: "grid", gap: "8px", padding: "1.5rem", gridTemplateColumns: "1fr 1fr 1fr 1fr" }}>
             {graphics.map((graphic, index) => (

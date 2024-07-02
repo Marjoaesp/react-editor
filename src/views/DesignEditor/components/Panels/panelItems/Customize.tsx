@@ -9,10 +9,6 @@ import { Modal, ROLE } from "baseui/modal"
 import { Block } from "baseui/block"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import Scrollable from "~/components/Scrollable"
-import { sampleFrames } from "~/constants/editor"
-import Scrollbar from "@layerhub-io/react-custom-scrollbar"
-import SwapHorizontal from "~/components/Icons/SwapHorizontal"
-import { Tabs, Tab } from "baseui/tabs"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
@@ -61,7 +57,7 @@ export default function () {
         <Block padding={"0 1.5rem"}>
           <Block>
             <ResizeTemplate />
-            <Block $style={{ fontSize: "14px", textAlign: "center", paddingTop: "0.35rem" }}>1080 x 1920px</Block>
+            <Block $style={{ fontSize: "14px", textAlign: "center", paddingTop: "0.35rem" }}>1920 x 1080px</Block>
           </Block>
 
           <Block paddingTop={"0.5rem"}>
@@ -164,13 +160,8 @@ export default function () {
 
 function ResizeTemplate() {
   const [isOpen, setIsOpen] = React.useState(false)
-  const [activeKey, setActiveKey] = React.useState<string | number>("0")
   const { currentDesign, setCurrentDesign } = useDesignEditorContext()
   const editor = useEditor()
-  const [desiredFrame, setDesiredFrame] = React.useState({
-    width: 0,
-    height: 0,
-  })
   const [selectedFrame, setSelectedFrame] = React.useState<any>({
     id: 0,
     width: 0,
@@ -178,38 +169,24 @@ function ResizeTemplate() {
   })
   const frame = useFrame()
 
-  React.useEffect(() => {
-    if (frame) {
-      setDesiredFrame({
-        width: frame.width,
-        height: frame.height,
-      })
-    }
-  }, [frame])
-
   const applyResize = () => {
-    // @ts-ignore
-    const size = activeKey === "0" ? selectedFrame : desiredFrame
+    const width = 1920
+    const height = 1080
     if (editor) {
       editor.frame.resize({
-        width: parseInt(size.width),
-        height: parseInt(size.height),
+        width,
+        height,
       })
       setCurrentDesign({
         ...currentDesign,
         frame: {
-          width: parseInt(size.width),
-          height: parseInt(size.height),
+          width,
+          height,
         },
       })
     }
     setIsOpen(false)
   }
-  const isEnabled =
-    // @ts-ignore
-    (activeKey === "0" && selectedFrame.id !== 0) ||
-    // @ts-ignore
-    (activeKey === "1" && !!parseInt(desiredFrame.width) && !!parseInt(desiredFrame.height))
 
   return (
     <>
@@ -254,106 +231,11 @@ function ResizeTemplate() {
               fontWeight: 500,
             }}
           >
-            Choose a format and resize your template.
+            Resize your template to 1920x1080.
           </Block>
-          <Tabs
-            overrides={{
-              TabContent: {
-                style: {
-                  paddingLeft: 0,
-                  paddingRight: 0,
-                },
-              },
-              TabBar: {
-                style: {
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                  backgroundColor: "#ffffff",
-                },
-              },
-            }}
-            activeKey={activeKey}
-            onChange={({ activeKey }) => {
-              setActiveKey(activeKey)
-            }}
-          >
-            <Tab title="Preset size">
-              <Block $style={{ width: "100%", height: "400px" }}>
-                <Scrollbar>
-                  <Block $style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
-                    {sampleFrames.map((sampleFrame, index) => (
-                      <Block
-                        onClick={() => setSelectedFrame(sampleFrame)}
-                        $style={{
-                          padding: "0.5rem",
-                          backgroundColor: selectedFrame.id === sampleFrame.id ? "rgb(243,244,245)" : "#ffffff",
-                          ":hover": {
-                            backgroundColor: "rgb(246,247,248)",
-                            cursor: "pointer",
-                          },
-                        }}
-                        key={index}
-                      >
-                        <Block
-                          $style={{
-                            height: "120px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <img src={sampleFrame.preview} />
-                        </Block>
-                        <Block $style={{ fontSize: "13px", textAlign: "center" }}>
-                          <Block $style={{ fontWeight: 500 }}>{sampleFrame.name}</Block>
-                          <Block $style={{ color: "rgb(119,119,119)" }}>
-                            {sampleFrame.width} x {sampleFrame.height}px
-                          </Block>
-                        </Block>
-                      </Block>
-                    ))}
-                  </Block>
-                </Scrollbar>
-              </Block>
-            </Tab>
-            <Tab title="Custom size">
-              <Block $style={{ padding: "2rem 2rem" }}>
-                <Block
-                  $style={{ display: "grid", gridTemplateColumns: "1fr 50px 1fr", alignItems: "end", fontSize: "14px" }}
-                >
-                  <Input
-                    onChange={(e: any) => setDesiredFrame({ ...desiredFrame, width: e.target.value })}
-                    value={desiredFrame.width}
-                    startEnhancer="W"
-                    size={SIZE.compact}
-                  />
-                  <Button
-                    overrides={{
-                      Root: {
-                        style: {
-                          height: "32px",
-                        },
-                      },
-                    }}
-                    size={SIZE.compact}
-                    kind="tertiary"
-                  >
-                    <SwapHorizontal size={24} />
-                  </Button>
-                  <Input
-                    onChange={(e: any) => setDesiredFrame({ ...desiredFrame, height: e.target.value })}
-                    value={desiredFrame.height}
-                    startEnhancer="H"
-                    size={SIZE.compact}
-                  />
-                </Block>
-              </Block>
-            </Tab>
-          </Tabs>
         </Block>
         <Block $style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingBottom: "2rem" }}>
-          <Button disabled={!isEnabled} onClick={applyResize} style={{ width: "190px" }}>
+          <Button onClick={applyResize} style={{ width: "190px" }}>
             Resize template
           </Button>
         </Block>
@@ -361,3 +243,4 @@ function ResizeTemplate() {
     </>
   )
 }
+
