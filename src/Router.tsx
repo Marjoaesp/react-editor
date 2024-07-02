@@ -3,6 +3,9 @@ import DesignEditor from "~/views/DesignEditor"  // Importa el componente Design
 import Login from "~/views/Login"  // Importa el componente Dashboard desde la ruta especificada
 import Register from "./views/Register"
 import Screens from "./views/Screen"
+import { Playlist, PlaylistManager, EditPlaylist, Modal } from './views/Playlists';
+import PlaylistWrapper from './views/Playlists/PlaylistWrapper';
+
 // Define un componente funcional llamado Router
 function Router() {
   return (
@@ -15,7 +18,7 @@ function Router() {
         <Route path="/Login" element={<Login/>} />
         <Route path="/Register" element={<Register/>} />
         <Route path="/Screens" element={<Screens/>} />
-
+        <Route path="/Playlist" element={<PlaylistWrapper/>} />
         
         {/* Define la ruta raíz que muestra el componente DesignEditor cuando la URL es "/" */}
         <Route path="/" element={<DesignEditor />} />
