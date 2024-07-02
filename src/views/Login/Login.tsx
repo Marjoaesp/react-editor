@@ -8,7 +8,13 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
-
+  const iconStyle = {
+    padding: "9px",
+    verticalAlign: "middle",
+    width: "50px",
+    height: "50px",
+    backgroundColor: "black"
+  };
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     // Lógica de autenticación aquí
@@ -22,70 +28,39 @@ const Login: React.FC = () => {
     navigate("/register"); // Navegar a la página de registro
   };
 
-  const iconStyle = {
-    padding: "9px",
-    verticalAlign: "middle",
-    width: "24px",
-    height: "24px",
-    backgroundColor: "black"
-  }; // Estilo para los iconos
-
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#161616"
-      }}
-    >
-      <div
-        style={{
-          width: "300px",
-          backgroundColor: "#161616",
-          textAlign: "center",
-          padding: "30px",
-        }}
-      >
-        <h2 style={{ marginBottom: "20px", color: "#ffffff" }}>Sign in</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 w-full">
+      <div className="w-80 bg-gray-900 text-white p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl mb-4 text-center">Sign in</h2>
 
-        <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <div style={{ marginBottom: "15px", width: "100%", display: "flex", alignItems: "center" }}>
+        <form onSubmit={handleLogin} className="flex flex-col space-y-4">
+          <div className="flex items-center">
             <Email size={24} style={iconStyle} />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={{ width: "100%", padding: "13px", boxSizing: "border-box", border: "1px solid #ccc" }}
+              className="w-full px-4 py-3 border border-gray-300 text-black "
               placeholder="Email"
             />
           </div>
 
-          <div style={{ marginBottom: "15px", width: "100%", display: "flex", alignItems: "center" }}>
+          <div className="flex items-center">
             <Password size={24} style={iconStyle} />
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="w-full px-4 py-3 border border-gray-300 text-black "
               placeholder="Password"
-              style={{ width: "100%", padding: "13px", boxSizing: "border-box", border: "1px solid #ccc" }}
             />
           </div>
 
           <button
             type="submit"
-            style={{
-              color: "#ffffff",
-              width: "100%",
-              padding: "10px",
-              backgroundColor: "#7b7b7b",
-              border: "none",
-              cursor: "pointer"
-            }}
+            className="bg-gray-600 text-white py-2  hover:bg-gray-700 transition duration-300"
           >
             Login
           </button>
@@ -93,17 +68,9 @@ const Login: React.FC = () => {
           <button
             type="button"
             onClick={handleRegister}
-            style={{
-              width: "100%",
-              marginTop: "25%",
-              padding: "10px",
-              backgroundColor: "#000000",
-              color: "#ffffff",
-              border: "none",
-              cursor: "pointer"
-            }}
+            className="bg-black text-white py-2  mt-4 hover:bg-gray-800 transition duration-300"
           >
-            Registrarse
+            Register
           </button>
         </form>
       </div>
