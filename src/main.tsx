@@ -2,10 +2,8 @@ import ReactDOM from "react-dom/client"
 import Provider from "./Provider"
 import Router from "./Router"
 import Container from "./Container"
-import "./styles/styles.css"
 import "./styles/index.css"
 import React from 'react';
-import "./styles/index.css"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider>
