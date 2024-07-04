@@ -1,24 +1,16 @@
-// Screens.tsx
 import React, { useState, useEffect } from 'react';
 import SidebarMartin from '../DesignEditor/components/SidebarMartin';
 import useSamsungTVScanner from '~/useSamsungTVScanner';
+import MonitorIcon from '~/components/Icons/MonitorIcon';
 
 interface Screen {
   id: number;
   name: string;
-  img: string;
 }
-
-const getScreens = (count: number): Screen[] =>
-  Array.from({ length: count }, (_, k) => ({
-    id: k,
-    name: `Screen ${k}`,
-    img: `https://picsum.photos/200/200?random=${k}`
-  }));
 
 const Screens: React.FC = () => {
   const { samsungTVs, loading, scanNetwork } = useSamsungTVScanner();
-  const [screens, setScreens] = useState<Screen[]>(getScreens(10));
+  const [screens, setScreens] = useState<Screen[]>([]);
   const [emptyScreens, setEmptyScreens] = useState<Screen[]>([]);
   const [draggedScreen, setDraggedScreen] = useState<Screen | null>(null);
   const [sourceList, setSourceList] = useState<Screen[] | null>(null);
@@ -27,6 +19,15 @@ const Screens: React.FC = () => {
   useEffect(() => {
     scanNetwork(); // Scan the network when the component mounts
   }, [scanNetwork]);
+
+  useEffect(() => {
+    // Update screens based on detected Samsung TVs
+    const newScreens = samsungTVs.map((tv, index) => ({
+      id: index,
+      name: tv.name
+    }));
+    setScreens(newScreens);
+  }, [samsungTVs]);
 
   const onDragStart = (event: React.DragEvent<HTMLDivElement>, screen: Screen, list: Screen[], setList: React.Dispatch<React.SetStateAction<Screen[]>>) => {
     setDraggedScreen(screen);
@@ -61,94 +62,39 @@ const Screens: React.FC = () => {
   };
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
+    <div className="flex h-screen">
       <SidebarMartin />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          marginTop: "50px",
-          width: "100%",
-          overflow: "hidden",
-        }}
-      >
+      <div className="flex flex-col items-start mt-12 w-full overflow-hidden">
         <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            background: "lightgrey",
-            padding: "8px",
-            width: "50%", // Full width
-            height: "30%",
-
-            overflowX: "auto", // Enable horizontal scrolling
-            overflowY: "hidden", // Hide vertical scrollbar
-            maxHeight: "50vh", // Limit the max height of the container
-          }}
+          className="flex flex-row items-start justify-start bg-gray-300 p-2 w-1/2 h-1/3 overflow-x-auto overflow-y-hidden max-h-[50vh]"
           onDragOver={onDragOver}
-          onDrop={(e) => onDrop(e, emptyScreens, setEmptyScreens)} // Empty container on top
+          onDrop={(e) => onDrop(e, emptyScreens, setEmptyScreens)}
         >
           {emptyScreens.map((screen) => (
             <div
               key={screen.id}
               draggable
               onDragStart={(e) => onDragStart(e, screen, emptyScreens, setEmptyScreens)}
-              style={{
-                userSelect: "none",
-                padding: "16px",
-                margin: "0 8px",
-                width: "200px", // Fixed width
-                minWidth: "200px", // Minimum width
-                backgroundColor: "#456C86",
-                color: "white",
-                cursor: "move",
-                flexShrink: 0, // Prevent items from shrinking when space is limited
-              }}
+              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[#456C86] text-white cursor-move flex-shrink-0 flex flex-col items-center"
             >
-              <img src={screen.img} alt={screen.name} style={{ width: "100%" }} />
+              <MonitorIcon />
               <div>{screen.name}</div>
             </div>
           ))}
         </div>
         <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            background: "lightgrey",
-            padding: "8px",
-            marginTop: "1%",
-            width: "50%", // Full width
-            height: "30%",
-            overflowX: "auto", // Enable horizontal scrolling
-            overflowY: "hidden", // Hide vertical scrollbar
-            // Limit the max height of the container
-          }}
+          className="flex flex-row items-start justify-start bg-gray-300 p-2 mt-1 w-1/2 h-1/3 overflow-x-auto overflow-y-hidden"
           onDragOver={onDragOver}
-          onDrop={(e) => onDrop(e, screens, setScreens)} // Full container on bottom
+          onDrop={(e) => onDrop(e, screens, setScreens)}
         >
           {screens.map((screen) => (
             <div
               key={screen.id}
               draggable
               onDragStart={(e) => onDragStart(e, screen, screens, setScreens)}
-              style={{
-                userSelect: "none",
-                padding: "16px",
-                margin: "0 8px",
-                width: "200px", // Fixed width
-                minWidth: "200px", // Minimum width
-                backgroundColor: "#456C86",
-                color: "white",
-                cursor: "move",
-                flexShrink: 0, // Prevent items from shrinking when space is limited
-              }}
+              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[#456C86] text-white cursor-move flex-shrink-0 flex flex-col items-center"
             >
-              <img src={screen.img} alt={screen.name} style={{ width: "100%" }} />
+              <MonitorIcon />
               <div>{screen.name}</div>
             </div>
           ))}
@@ -157,29 +103,12 @@ const Screens: React.FC = () => {
         <button
           type="button"
           onClick={scanNetwork}
-          style={{
-            width: "150px",
-            height: "40px",
-            background: "blue",
-            color: "white",
-            border: "1px #ccc",
-            borderRadius: "5px",
-            cursor: "pointer",
-            marginLeft: "23%",
-            marginTop: "1%"
-          }}
+          className="w-[150px] h-10 bg-blue-600 text-white border border-gray-300 rounded-lg cursor-pointer ml-[23%] mt-1"
         >
           {loading ? 'Escaneando...' : 'Escanear'}
         </button>
 
-        <div
-          style={{
-            marginTop: "20px",
-            width: "50%",
-            background: "lightgrey",
-            padding: "8px",
-          }}
-        >
+        <div className="mt-5 w-1/2 bg-gray-300 p-2">
           <h2>Samsung TVs Detected:</h2>
           {samsungTVs.length > 0 ? (
             <ul>

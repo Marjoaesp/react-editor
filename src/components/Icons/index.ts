@@ -30,8 +30,9 @@ import Email from "./Email"
 import Password from "./Password"
 import Scissors from "./Scissors"
 import LogOut from "./LogOut"
-
+import MonitorIcon from "./MonitorIcon"
 class Icons {
+  static MonitorIcon=MonitorIcon
   static LogOut=LogOut
   static Scissors=Scissors
   static Password=Password

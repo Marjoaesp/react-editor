@@ -1,16 +1,17 @@
-const express = require('express');
+// server.ts
+import express from 'express';
+
 const app = express();
-const port = 3000;
+const port = 5173;
 
 app.use(express.json());
 
-app.post('/api/device-info', (req: { body: { ipAddress: any; macAddress: any; }; }, res: { json: (arg0: { message: string; }) => void; }) => {
-    const { ipAddress, macAddress } = req.body;
-    console.log(`Received IP: ${ipAddress}, MAC: ${macAddress}`);
-    // Process the data as needed
-    res.json({ message: 'Device info received successfully' });
+app.post('/Info', (req, res) => {
+    const { word } = req.body;
+    console.log('Word received:', word);
+    res.status(200).json({ message: 'Word received successfully' });
 });
 
 app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });
