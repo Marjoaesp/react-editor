@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar"
 import Panels from "./components/Panels"
+import Layers from "./components/Layers"
 import Canvas from "./components/Canvas"
 import Footer from "./components/Footer"
 import Toolbox from "./components/Toolbox"
@@ -19,6 +20,7 @@ function GraphicEditor() {
             <Canvas />
             <Footer />
           </div>
+          <Layers />
         </div>
       </EditorContainer>
     </>
