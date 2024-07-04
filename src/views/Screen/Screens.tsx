@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import SidebarMartin from '../DesignEditor/components/SidebarMartin';
 import useSamsungTVScanner from '~/useSamsungTVScanner';
+import MonitorIcon from '~/components/Icons/MonitorIcon';
 
 interface Screen {
   id: number;
   name: string;
-  img: string;
 }
-
-const getScreens = (count: number): Screen[] =>
-  Array.from({ length: count }, (_, k) => ({
-    id: k,
-    name: `Screen ${k}`,
-    img: `https://picsum.photos/200/200?random=${k}`
-  }));
 
 const Screens: React.FC = () => {
   const { samsungTVs, loading, scanNetwork } = useSamsungTVScanner();
-  const [screens, setScreens] = useState<Screen[]>(getScreens(10));
+  const [screens, setScreens] = useState<Screen[]>([]);
   const [emptyScreens, setEmptyScreens] = useState<Screen[]>([]);
   const [draggedScreen, setDraggedScreen] = useState<Screen | null>(null);
   const [sourceList, setSourceList] = useState<Screen[] | null>(null);
@@ -26,6 +19,15 @@ const Screens: React.FC = () => {
   useEffect(() => {
     scanNetwork(); // Scan the network when the component mounts
   }, [scanNetwork]);
+
+  useEffect(() => {
+    // Update screens based on detected Samsung TVs
+    const newScreens = samsungTVs.map((tv, index) => ({
+      id: index,
+      name: tv.name
+    }));
+    setScreens(newScreens);
+  }, [samsungTVs]);
 
   const onDragStart = (event: React.DragEvent<HTMLDivElement>, screen: Screen, list: Screen[], setList: React.Dispatch<React.SetStateAction<Screen[]>>) => {
     setDraggedScreen(screen);
@@ -73,9 +75,9 @@ const Screens: React.FC = () => {
               key={screen.id}
               draggable
               onDragStart={(e) => onDragStart(e, screen, emptyScreens, setEmptyScreens)}
-              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[#456C86] text-white cursor-move flex-shrink-0"
+              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[#456C86] text-white cursor-move flex-shrink-0 flex flex-col items-center"
             >
-              <img src={screen.img} alt={screen.name} className="w-full" />
+              <MonitorIcon />
               <div>{screen.name}</div>
             </div>
           ))}
@@ -90,9 +92,9 @@ const Screens: React.FC = () => {
               key={screen.id}
               draggable
               onDragStart={(e) => onDragStart(e, screen, screens, setScreens)}
-              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[#456C86] text-white cursor-move flex-shrink-0"
+              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[#456C86] text-white cursor-move flex-shrink-0 flex flex-col items-center"
             >
-              <img src={screen.img} alt={screen.name} className="w-full" />
+              <MonitorIcon />
               <div>{screen.name}</div>
             </div>
           ))}
