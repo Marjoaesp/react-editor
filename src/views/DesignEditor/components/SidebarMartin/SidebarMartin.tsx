@@ -1,21 +1,21 @@
-import React, { useState } from "react"
-import { Link } from "react-router-dom"
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar"
-import DisplayScreen from "~/components/Icons/DisplayScreen"
-import Playlist from "~/components/Icons/Playlist"
-import Libreria from "~/components/Icons/Libreria"
-import UserProfile from "./Components"
-import Scissors from "~/components/Icons/Scissors"
-import LogOut from "~/components/Icons/LogOut"
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import DisplayScreen from "~/components/Icons/DisplayScreen";
+import Playlist from "~/components/Icons/Playlist";
+import Libreria from "~/components/Icons/Libreria";
+import UserProfile from "./Components";
+import Scissors from "~/components/Icons/Scissors";
+import LogOut from "~/components/Icons/LogOut";
 
 const SidebarMartin = () => {
-  const [isOpen, setIsOpen] = useState(true)
-  const iconStyle = { marginRight: "8px", verticalAlign: "middle", width: "24px", height: "24px" }
-  const sidebarWidth = isOpen ? "w-64" : "w-20" // Adjust width according to your preference
+  const [isOpen, setIsOpen] = useState(true);
+  const iconStyle = { marginRight: "8px", verticalAlign: "middle", width: "24px", height: "24px" };
+  const sidebarWidth = isOpen ? "w-64" : "w-20"; // Adjust width according to your preference
 
   const toggleSidebar = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className={`flex transition-width duration-300 ${sidebarWidth}`}>
@@ -23,45 +23,40 @@ const SidebarMartin = () => {
         {/* Condición para mostrar UserProfile solo si el sidebar está abierto */}
         {isOpen && <UserProfile username="Martin Parisi" />}
 
-        {/* Condición para mostrar el menú solo si el sidebar está abierto */}
-        {isOpen && (
-          <div className="mt-10">
-            <Menu>
-              <MenuItem>
-                <Link to="/Screens" className="flex items-center no-underline text-gray-800">
-                  <DisplayScreen size={24} style={iconStyle} />
-                  <span className="ml-1 align-middle leading-6">Pantallas</span>
-                </Link>
-              </MenuItem>
-              <MenuItem>
-                <Link to="/playlist" className="flex items-center no-underline text-gray-800">
-                  <Playlist size={24} style={iconStyle} />
-                  <span className="ml-1 align-middle leading-6">Playlist</span>
-                </Link>
-              </MenuItem>
-              <MenuItem>
-                <Link to="/biblioteca" className="flex items-center no-underline text-gray-800">
-                  <Libreria size={24} style={iconStyle} />
-                  <span className="ml-1 align-middle leading-6">Biblioteca</span>
-                </Link>
-              </MenuItem>
-              <MenuItem>
-                <Link to="/" className="flex items-center no-underline text-gray-800">
-                  <Scissors size={24} style={iconStyle} />
-                  <span className="ml-1 align-middle leading-6">Editor</span>
-                </Link>
-              </MenuItem>
-            </Menu>
-          </div>
-        )}
+        <div className="mt-10">
+          <Menu>
+            <MenuItem>
+              <Link to="/Screens" className="flex items-center no-underline text-gray-800">
+                <DisplayScreen size={24} style={iconStyle} />
+                {isOpen && <span className="ml-1 align-middle leading-6">Pantallas</span>}
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/playlist" className="flex items-center no-underline text-gray-800">
+                <Playlist size={24} style={iconStyle} />
+                {isOpen && <span className="ml-1 align-middle leading-6">Playlist</span>}
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/biblioteca" className="flex items-center no-underline text-gray-800">
+                <Libreria size={24} style={iconStyle} />
+                {isOpen && <span className="ml-1 align-middle leading-6">Biblioteca</span>}
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/" className="flex items-center no-underline text-gray-800">
+                <Scissors size={24} style={iconStyle} />
+                {isOpen && <span className="ml-1 align-middle leading-6">Editor</span>}
+              </Link>
+            </MenuItem>
+          </Menu>
+        </div>
 
-        {/* Condición para mostrar el botón de cerrar sesión solo si el sidebar está abierto */}
-        {isOpen && (
-          <Link to="/login" className="flex items-center no-underline text-gray-800 mt-20 ml-4">
-            <LogOut size={24} />
-            <span className="ml-1 align-middle leading-6">Cerrar sesión</span>
-          </Link>
-        )}
+        {/* Botón de cerrar sesión */}
+        <Link to="/login" className="flex items-center no-underline text-gray-800 mt-20 ml-4">
+          <LogOut size={24} />
+          {isOpen && <span className="ml-1 align-middle leading-6">Cerrar sesión</span>}
+        </Link>
       </Sidebar>
 
       {/* Botón para alternar la visibilidad del sidebar */}
@@ -80,7 +75,7 @@ const SidebarMartin = () => {
         </svg>
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default SidebarMartin
+export default SidebarMartin;

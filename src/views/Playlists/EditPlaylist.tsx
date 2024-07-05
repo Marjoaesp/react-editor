@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ModalPopup from '~/components/Modal';
 
 interface PlaylistItem {
   type: 'image' | 'video';
@@ -53,13 +54,11 @@ const EditPlaylist: React.FC<EditPlaylistProps> = ({ playlist, onSave, onClose }
     onSave(updatedPlaylist);
   };
 
-
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
       <div id="edit-modal" className="bg-white p-4 rounded shadow-lg w-full max-w-4xl overflow-hidden h-3/4">
         <div className="flex justify-between mb-4">
           <h2 className="text-xl font-bold">Editar lista de reproducción</h2>
-          <h2 className="text-xl font-bold">Añadir nuevo elemento</h2>
         </div>
         <div className="flex justify-between h-full">
           <div id="edit-playlist-items" className="space-y-4 w-3/4 pr-4 overflow-y-auto border-r border-gray-300">
@@ -84,6 +83,7 @@ const EditPlaylist: React.FC<EditPlaylistProps> = ({ playlist, onSave, onClose }
               </div>
             ))}
           </div>
+          
           <div id="file-upload-section" className="flex flex-col items-start w-1/2 pl-4">
             <h3 className="text-lg font-bold mb-2">Añadir nuevo elemento</h3>
             <div className="flex flex-col space-y-2">
@@ -94,7 +94,7 @@ const EditPlaylist: React.FC<EditPlaylistProps> = ({ playlist, onSave, onClose }
                 onChange={(e) => {
                   const file = e.target.files?.[0];
                   if (file) {
-                    addItem(file.type.startsWith('image') ? 'image' : 'video', file, '00:00:10');
+                    addItem(file.type.startsWith('image') ? 'image' : 'video', file);
                   }
                 }}
               />

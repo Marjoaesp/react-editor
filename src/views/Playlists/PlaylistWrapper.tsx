@@ -4,7 +4,7 @@ import SidebarMartin from '../DesignEditor/components/SidebarMartin';
 import Modal from './Modal';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-
+import ModalPopup from '~/components/Modal';
 interface PlaylistItem {
   type: 'image' | 'video';
   name: string;
@@ -71,9 +71,10 @@ const PlaylistManager: React.FC = () => {
   };
 
   return (
-  <div style={{ display: "flex", height: "100vh" }}>
+<div className="flex h-screen">
+    <ModalPopup/>
     <SidebarMartin/>
-    <div className="p-4">
+    <div className="p-4 ml-7">
       <h1 className="text-2xl font-bold mb-4">Playlists</h1>
       <button
         onClick={() => setIsCreating(true)}

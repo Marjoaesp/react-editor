@@ -100,6 +100,7 @@ const Screens: React.FC = () => {
           ))}
         </div>
 
+
         <button
           type="button"
           onClick={scanNetwork}
@@ -107,7 +108,7 @@ const Screens: React.FC = () => {
         >
           {loading ? 'Escaneando...' : 'Escanear'}
         </button>
-
+          
         <div className="mt-5 w-1/2 bg-gray-300 p-2">
           <h2>Samsung TVs Detected:</h2>
           {samsungTVs.length > 0 ? (
