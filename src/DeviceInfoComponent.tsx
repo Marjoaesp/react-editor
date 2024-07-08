@@ -1,4 +1,3 @@
-export{};
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -9,20 +8,22 @@ const port = 5173;
 app.use(bodyParser.json());
 app.use(cors());
 
-let receivedWord = '';
+let receivedIP = '';
+let receivedMAC = '';
 
-app.post('/Info', (req: { body: { word: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; word?: any; }): void; new(): any; }; }; }) => {
-    const { word } = req.body;
-    if (word) {
-        receivedWord = word;
-        res.status(200).json({ message: 'Word received successfully', word });
+app.post('/Info', (req: { body: { ip: any; mac: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; ip?: any; mac?: any; }): void; new(): any; }; }; }) => {
+    const { ip, mac } = req.body;
+    if (ip && mac) {
+        receivedIP = ip;
+        receivedMAC = mac;
+        res.status(200).json({ message: 'Device information received successfully', ip, mac });
     } else {
-        res.status(400).json({ message: 'No word received' });
+        res.status(400).json({ message: 'Missing IP or MAC address' });
     }
 });
 
-app.get('/Info', (req: any, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { word: string; }): void; new(): any; }; }; }) => {
-    res.status(200).json({ word: receivedWord });
+app.get('/Info', (req: any, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { ip: string; mac: string; }): void; new(): any; }; }; }) => {
+    res.status(200).json({ ip: receivedIP, mac: receivedMAC });
 });
 
 app.listen(port, () => {
