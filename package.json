@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@layerhub-io/types": "^0.2.0",
+    "@types/cors": "^2.8.17",
     "@types/file-saver": "^2.0.7",
     "@types/lodash": "^4.14.182",
     "@types/mime": "^2.0.3",
