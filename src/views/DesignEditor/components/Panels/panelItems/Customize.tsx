@@ -223,21 +223,18 @@ function ResizeTemplate() {
           },
         }}
       >
-        <Block $style={{ padding: "0 1.5rem", width: "640px" }}>
-          <Block
-            $style={{
-              padding: "2rem 1rem 1rem",
-              textAlign: "center",
-              fontWeight: 500,
-            }}
-          >
+        <Block className="p-6">
+          <Block className="pb-2 text-center font-medium">
             Resize your template to 1920x1080.
           </Block>
         </Block>
-        <Block $style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingBottom: "2rem" }}>
-          <Button onClick={applyResize} style={{ width: "190px" }}>
+        <Block className="flex items-center justify-center pb-4">
+          <button
+            onClick={applyResize}
+            className="w-48 bg-blue-500 text-white py-2 rounded-md"
+          >
             Resize template
-          </Button>
+          </button>
         </Block>
       </Modal>
     </>

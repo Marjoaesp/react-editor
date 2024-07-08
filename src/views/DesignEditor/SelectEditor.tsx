@@ -1,6 +1,4 @@
 import React from "react";
-import { Block } from "baseui/block";
-import { Button } from "baseui/button";
 import { DesignType } from "~/interfaces/DesignEditor";
 import useDesignEditorContext from "~/hooks/useDesignEditorContext";
 import Images from "~/components/Icons/Images";
@@ -10,50 +8,27 @@ export default function () {
   const { setEditorType } = useDesignEditorContext();
 
   return (
-    <Block
-      $style={{
-        height: "100vh",
-        width: "100vw",
-        background: "#ffffff",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Block $style={{ textAlign: "center" }}>
-        <Block
-          $style={{
-            display: "flex",
-            gap: "2rem",
-            justifyContent: "center",
-            marginBottom: "2rem",
-          }}
-        >
-          <Block
+    <div className="h-screen w-screen bg-white flex items-center justify-center">
+      <div className="text-center">
+        <div className="flex gap-8 justify-center mb-8">
+          <div
             onClick={() => setSelectedEditor("GRAPHIC")}
-            $style={{
-              height: "180px",
-              width: "180px",
-              background: selectedEditor === "GRAPHIC" ? "#000000" : "rgb(231, 236, 239)",
-              color: selectedEditor === "GRAPHIC" ? "#ffffff" : "#333333",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              flexDirection: "column",
-              gap: "0.5rem",
-            }}
+            className={`h-45 w-45 flex items-center justify-center cursor-pointer flex-col gap-2
+              ${selectedEditor === "GRAPHIC" ? "bg-black text-white" : "bg-gray-200 text-gray-800"}`}
           >
             <Images size={34} />
-            <Block>Graphic</Block>
-          </Block>
-        </Block>
-        <Block $style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Button style={{ width: "180px" }} onClick={() => setEditorType(selectedEditor)}>
+            <div>Graphic</div>
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <button 
+            className="w-45 bg-blue-500 text-white py-2 px-4 rounded"
+            onClick={() => setEditorType(selectedEditor)}
+          >
             Continue
-          </Button>
-        </Block>
-      </Block>
-    </Block>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -18,7 +18,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./typings"],
-
+    "outDir": "/Dist",
     "paths": {
       "~/*": ["src/*"]
       

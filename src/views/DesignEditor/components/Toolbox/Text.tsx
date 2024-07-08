@@ -27,6 +27,7 @@ import { IStaticText } from "@layerhub-io/types"
 import { getTextProperties } from "../../utils/text"
 import { loadFonts } from "~/utils/fonts"
 import Scrollbar from "@layerhub-io/react-custom-scrollbar"
+
 interface TextState {
   color: string
   bold: boolean
@@ -248,20 +249,18 @@ export default function () {
           </StatefulTooltip>
 
           <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType={"tooltip"} content="Bold">
-            <Button
-              $style={{ ...(!state.bold && { color: "rgb(169,169,169)" }) }}
-              disabled={!state.styleOptions.hasBold}
-              onClick={makeBold}
-              size={SIZE.mini}
-              kind={KIND.tertiary}
-            >
-              <Bold size={20} />
-            </Button>
-          </StatefulTooltip>
+  <Button
+    disabled={!state.styleOptions.hasBold}
+    onClick={makeBold}
+    size="mini"
+    kind="tertiary"
+  >
+    <Bold size={20} />
+  </Button>
+</StatefulTooltip>
 
           <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType={"tooltip"} content="Italic">
             <Button
-              $style={{ ...(!state.italic && { color: "rgb(169,169,169)" }) }}
               disabled={!state.styleOptions.hasItalic}
               onClick={makeItalic}
               size={SIZE.mini}
@@ -278,7 +277,6 @@ export default function () {
             content="Underline"
           >
             <Button
-              $style={{ ...(!state.underline && { color: "rgb(169,169,169)" }) }}
               onClick={makeUnderline}
               size={SIZE.mini}
               kind={KIND.tertiary}
