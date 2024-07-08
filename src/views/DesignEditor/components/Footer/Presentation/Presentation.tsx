@@ -1,18 +1,14 @@
-import React from "react"
-import { styled } from "baseui"
-import { Theme } from "baseui/theme"
-import Common from "./Common"
-import Scenes from "./Scenes"
+import React from "react";
+import Common from "./Common";
+import Scenes from "./Scenes";
 
-const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
-  background: $theme.colors.white,
-}))
-
-export default function () {
+const MyComponent: React.FC = () => {
   return (
-    <Container>
+    <div className="bg-white">
       <Scenes />
       <Common />
-    </Container>
-  )
-}
+    </div>
+  );
+};
+
+export default MyComponent;

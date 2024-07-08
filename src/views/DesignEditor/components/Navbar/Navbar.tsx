@@ -1,11 +1,8 @@
 import React, { useRef, useCallback } from "react";
-import { styled, ThemeProvider, DarkTheme } from "baseui";
-import { Theme } from "baseui/theme";
-import { Button, KIND } from "baseui/button";
 import Logo from "~/components/Icons/Logo";
 import useDesignEditorContext from "~/hooks/useDesignEditorContext";
 import Play from "~/components/Icons/Play";
-import { Block } from "baseui/block";
+import { Block } from "baseui/block"; // Remove if not needed
 import { useEditor } from "@layerhub-io/react";
 import useEditorType from "~/hooks/useEditorType";
 import { IScene } from "@layerhub-io/types";
@@ -14,15 +11,7 @@ import { loadVideoEditorAssets } from "~/utils/video";
 import DesignTitle from "./DesignTitle";
 import { IDesign } from "~/interfaces/DesignEditor";
 
-const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
-  height: "64px",
-  background: $theme.colors.black,
-  display: "grid",
-  padding: "0 1.25rem",
-  gridTemplateColumns: "240px 1fr 240px",
-  alignItems: "center",
-}));
-
+// Define TemplateData type
 interface TemplateData {
   scenes: IScene[];
   design: IDesign;
@@ -77,10 +66,8 @@ export default function CustomizeHeader() {
   };
 
   const makeDownloadTemplate = async () => {
-    if (editor) {
-      if (editorType === "GRAPHIC") {
-        parseGraphicJSON();
-      }
+    if (editor && editorType === "GRAPHIC") {
+      parseGraphicJSON();
     }
   };
 
@@ -107,12 +94,8 @@ export default function CustomizeHeader() {
 
   const handleImportTemplate = useCallback(
     async (data: any) => {
-      let templateData: TemplateData | undefined;
       if (data.type === "GRAPHIC") {
-        templateData = await loadGraphicTemplate(data);
-      }
-
-      if (templateData) {
+        const templateData = await loadGraphicTemplate(data);
         setScenes(templateData.scenes);
         setCurrentDesign(templateData.design);
       }
@@ -142,49 +125,31 @@ export default function CustomizeHeader() {
   };
 
   return (
-    <ThemeProvider theme={DarkTheme}>
-      <Container>
-        <DesignTitle />
-        <Block $style={{ display: "flex", alignItems: "center", gap: "0.5rem", justifyContent: "flex-end" }}>
-          <input
-            multiple={false}
-            onChange={handleFileInput}
-            type="file"
-            id="file"
-            ref={inputFileRef}
-            style={{ display: "none" }}
-          />
+    <div className="h-16 bg-black grid grid-cols-3 items-center px-5">
+      <DesignTitle />
+      <Block className="flex items-center gap-2 justify-end">
+        <input
+          multiple={false}
+          onChange={handleFileInput}
+          type="file"
+          id="file"
+          ref={inputFileRef}
+          className="hidden"
+        />
 
-          <Button
-            size="compact"
-            onClick={makeDownloadTemplate}
-            kind={KIND.tertiary}
-            overrides={{
-              StartEnhancer: {
-                style: {
-                  marginRight: "4px",
-                },
-              },
-            }}
-          >
-            Export
-          </Button>
-          <Button
-            size="compact"
-            onClick={() => setDisplayPreview(true)}
-            kind={KIND.tertiary}
-            overrides={{
-              StartEnhancer: {
-                style: {
-                  marginRight: "4px",
-                },
-              },
-            }}
-          >
-            <Play size={24} />
-          </Button>
-        </Block>
-      </Container>
-    </ThemeProvider>
+        <button
+          className="bg-gray-800 text-white px-4 py-2 rounded-md"
+          onClick={makeDownloadTemplate}
+        >
+          Export
+        </button>
+        <button
+          className="bg-gray-800 text-white px-4 py-2 rounded-md"
+          onClick={() => setDisplayPreview(true)}
+        >
+          <Play size={24} />
+        </button>
+      </Block>
+    </div>
   );
 }
