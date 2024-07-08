@@ -1,61 +1,52 @@
-import React from "react"
-import { styled, useStyletron } from "baseui"
-import { Theme } from "baseui/theme"
-import Add from "~/components/Icons/Add"
-import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
-import { DesignEditorContext } from "~/contexts/DesignEditor"
-import { nanoid } from "nanoid"
-import { getDefaultTemplate } from "~/constants/design-editor"
-import { useEditor } from "@layerhub-io/react"
-import { IScene } from "@layerhub-io/types"
+import React, { useContext, useEffect, useCallback, useState } from "react";
+import Icons from "~/components/Icons";
+import Add from "~/components/Icons/Add";
+import { DesignEditorContext } from "~/contexts/DesignEditor";
+import { nanoid } from "nanoid";
+import { getDefaultTemplate } from "~/constants/design-editor";
+import { useEditor } from "@layerhub-io/react";
+import { IScene } from "@layerhub-io/types";
 
-const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
-  background: $theme.colors.white,
-  padding: "0.25rem 0.75rem",
-}))
+const MyComponent: React.FC = () => {
+  const { scenes, setScenes, setCurrentScene, currentScene, setCurrentDesign, currentDesign } =
+    useContext(DesignEditorContext);
+  const editor = useEditor();
+  const [currentPreview, setCurrentPreview] = useState<string>("");
 
-export default function () {
-  const scenes = useDesignEditorPages()
-  const { setScenes, setCurrentScene, currentScene, setCurrentDesign, currentDesign } =
-    React.useContext(DesignEditorContext)
-  const editor = useEditor()
-  const [css] = useStyletron()
-  const [currentPreview, setCurrentPreview] = React.useState("")
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (editor && scenes && currentScene) {
-      const isCurrentSceneLoaded = scenes.find((s) => s.id === currentScene?.id)
+      const isCurrentSceneLoaded = scenes.find((s) => s.id === currentScene?.id);
       if (!isCurrentSceneLoaded) {
-        setCurrentScene(scenes[0])
+        setCurrentScene(scenes[0]);
       }
     }
-  }, [editor, scenes, currentScene])
+  }, [editor, scenes, currentScene]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let watcher = async () => {
-      const updatedTemplate = editor.scene.exportToJSON()
-      const updatedPreview = (await editor.renderer.render(updatedTemplate)) as string
-      setCurrentPreview(updatedPreview)
-    }
+      const updatedTemplate = editor.scene.exportToJSON();
+      const updatedPreview = (await editor.renderer.render(updatedTemplate)) as string;
+      setCurrentPreview(updatedPreview);
+    };
     if (editor) {
-      editor.on("history:changed", watcher)
+      editor.on("history:changed", watcher);
     }
     return () => {
       if (editor) {
-        editor.off("history:changed", watcher)
+        editor.off("history:changed", watcher);
       }
-    }
-  }, [editor])
+    };
+  }, [editor]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (editor) {
       if (currentScene) {
-        updateCurrentScene(currentScene)
+        updateCurrentScene(currentScene);
       } else {
         const defaultTemplate = getDefaultTemplate({
           width: 1200,
           height: 1200,
-        })
+        });
         setCurrentDesign({
           id: nanoid(),
           frame: defaultTemplate.frame,
@@ -64,137 +55,99 @@ export default function () {
           preview: "",
           scenes: [],
           type: "PRESENTATION",
-        })
+        });
         editor.scene
           .importFromJSON(defaultTemplate)
           .then(() => {
-            const initialDesign = editor.scene.exportToJSON() as any
+            const initialDesign = editor.scene.exportToJSON() as any;
             editor.renderer.render(initialDesign).then((data) => {
-              setCurrentScene({ ...initialDesign, preview: data })
-              setScenes([{ ...initialDesign, preview: data }])
-            })
+              setCurrentScene({ ...initialDesign, preview: data });
+              setScenes([{ ...initialDesign, preview: data }]);
+            });
           })
-          .catch(console.log)
+          .catch(console.log);
       }
     }
-  }, [editor, currentScene])
+  }, [editor, currentScene]);
 
-  const updateCurrentScene = React.useCallback(
+  const updateCurrentScene = useCallback(
     async (design: IScene) => {
-      await editor.scene.importFromJSON(design)
-      const updatedPreview = (await editor.renderer.render(design)) as string
-      setCurrentPreview(updatedPreview)
+      await editor.scene.importFromJSON(design);
+      const updatedPreview = (await editor.renderer.render(design)) as string;
+      setCurrentPreview(updatedPreview);
     },
     [editor, currentScene]
-  )
+  );
 
-  const addScene = React.useCallback(async () => {
-    setCurrentPreview("")
-    const updatedTemplate = editor.scene.exportToJSON()
-    const updatedPreview = await editor.renderer.render(updatedTemplate)
+  const addScene = useCallback(async () => {
+    setCurrentPreview("");
+    const updatedTemplate = editor.scene.exportToJSON();
+    const updatedPreview = await editor.renderer.render(updatedTemplate);
 
-    const updatedPages = scenes.map((p) => {
-      if (p.id === updatedTemplate.id) {
-        return { ...updatedTemplate, preview: updatedPreview }
-      }
-      return p
-    })
+    const updatedPages = scenes.map((p) =>
+      p.id === updatedTemplate.id ? { ...updatedTemplate, preview: updatedPreview } : p
+    );
 
-    const defaultTemplate = getDefaultTemplate(currentDesign.frame)
-    const newPreview = await editor.renderer.render(defaultTemplate)
-    const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
-    const newPages = [...updatedPages, newPage] as any[]
-    setScenes(newPages)
-    setCurrentScene(newPage)
-  }, [scenes, currentDesign])
+    const defaultTemplate = getDefaultTemplate(currentDesign.frame);
+    const newPreview = await editor.renderer.render(defaultTemplate);
+    const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any;
+    const newPages = [...updatedPages, newPage] as any[];
+    setScenes(newPages);
+    setCurrentScene(newPage);
+  }, [scenes, currentDesign]);
 
-  const changePage = React.useCallback(
+  const changePage = useCallback(
     async (page: any) => {
-      setCurrentPreview("")
+      setCurrentPreview("");
       if (editor) {
-        const updatedTemplate = editor.scene.exportToJSON()
-        const updatedPreview = await editor.renderer.render(updatedTemplate)
+        const updatedTemplate = editor.scene.exportToJSON();
+        const updatedPreview = await editor.renderer.render(updatedTemplate);
 
-        const updatedPages = scenes.map((p) => {
-          if (p.id === updatedTemplate.id) {
-            return { ...updatedTemplate, preview: updatedPreview }
-          }
-          return p
-        }) as any[]
+        const updatedPages = scenes.map((p) =>
+          p.id === updatedTemplate.id ? { ...updatedTemplate, preview: updatedPreview } : p
+        ) as any[];
 
-        setScenes(updatedPages)
-        setCurrentScene(page)
+        setScenes(updatedPages);
+        setCurrentScene(page);
       }
     },
     [editor, scenes, currentScene]
-  )
+  );
 
   return (
-    <Container>
-      <div className={css({ display: "flex", alignItems: "center" })}>
+    <div className="bg-white p-1">
+      <div className="flex items-center">
         {scenes.map((page, index) => (
           <div
-            style={{
-              background: page.id === currentScene?.id ? "rgb(243,244,246)" : "#ffffff",
-              padding: "1rem 0.5rem",
-            }}
             key={index}
+            className={`${
+              page.id === currentScene?.id ? "bg-gray-200" : "bg-white"
+            } p-4 border ${
+              page.id === currentScene?.id ? "border-purple-600" : "border-gray-300"
+            } cursor-pointer`}
+            onClick={() => changePage(page)}
           >
-            <div
-              onClick={() => changePage(page)}
-              className={css({
-                cursor: "pointer",
-                position: "relative",
-                border: page.id === currentScene?.id ? "2px solid #7158e2" : "2px solid rgba(0,0,0,.15)",
-              })}
-            >
-              <img
-                style={{ maxWidth: "90px", maxHeight: "80px", display: "flex" }}
-                src={currentPreview && page.id === currentScene?.id ? currentPreview : page.preview}
-              />
-              <div
-                className={css({
-                  position: "absolute",
-                  bottom: "4px",
-                  right: "4px",
-                  background: "rgba(0,0,0,0.4)",
-                  color: "#fff",
-                  fontSize: "10px",
-                  borderRadius: "2px",
-                  height: "16px",
-                  width: "16px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                })}
-              >
-                {index + 1}
-              </div>
+            <img
+              src={currentPreview && page.id === currentScene?.id ? currentPreview : page.preview}
+              alt={`Scene ${index + 1}`}
+              className="max-w-90 max-h-80"
+            />
+            <div className="absolute bottom-4 right-4 bg-black bg-opacity-40 text-white text-xs rounded-full h-16 w-16 flex items-center justify-center">
+              {index + 1}
             </div>
           </div>
         ))}
-        <div
-          style={{
-            background: "#ffffff",
-            padding: "1rem 1rem 1rem 0.5rem",
-          }}
-        >
+        <div className="bg-white p-4 ml-2">
           <div
             onClick={addScene}
-            className={css({
-              width: "100px",
-              height: "56px",
-              background: "rgb(243,244,246)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-            })}
+            className="w-24 h-24 bg-gray-200 flex items-center justify-center cursor-pointer"
           >
             <Add size={20} />
           </div>
         </div>
       </div>
-    </Container>
-  )
-}
+    </div>
+  );
+};
+
+export default MyComponent;
