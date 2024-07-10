@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 app.use(cors());
 var receivedIP = '';
 var receivedMAC = '';
-app.post('/Info', function (req, res) {
+app.post('/info', function (req, res) {
     var _a = req.body, ip = _a.ip, mac = _a.mac;
     if (ip && mac) {
         receivedIP = ip;
@@ -18,7 +18,7 @@ app.post('/Info', function (req, res) {
         res.status(400).json({ message: 'Missing IP or MAC address' });
     }
 });
-app.get('/Info', function (req, res) {
+app.get('/info', function (req, res) {
     res.status(200).json({ ip: receivedIP, mac: receivedMAC });
 });
 app.listen(port, function () {
