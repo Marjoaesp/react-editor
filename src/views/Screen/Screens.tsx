@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import SidebarMartin from '../DesignEditor/components/SidebarMartin';
-import useSamsungTVScanner from '~/useSamsungTVScanner';
 import MonitorIcon from '~/components/Icons/MonitorIcon';
 
 interface Screen {
@@ -9,27 +8,34 @@ interface Screen {
 }
 
 const Screens: React.FC = () => {
-  const { samsungTVs, loading, scanNetwork } = useSamsungTVScanner();
   const [screens, setScreens] = useState<Screen[]>([]);
   const [emptyScreens, setEmptyScreens] = useState<Screen[]>([]);
   const [draggedScreen, setDraggedScreen] = useState<Screen | null>(null);
   const [sourceList, setSourceList] = useState<Screen[] | null>(null);
   const [setSourceListFn, setSetSourceListFn] = useState<React.Dispatch<React.SetStateAction<Screen[]>> | null>(null);
+  const [deviceInfo, setDeviceInfo] = useState<{ ip: string; mac: string }>({ ip: '', mac: '' });
 
   useEffect(() => {
-    scanNetwork(); // Scan the network when the component mounts
-  }, [scanNetwork]);
+    // Fetch device information from the server
+    const fetchDeviceInfo = async () => {
+      try {
+        const response = await fetch('http://192.168.255.55:5173/info');
+        const data = await response.json();
+        setDeviceInfo(data);
+      } catch (error) {
+        console.error('Error fetching device information:', error);
+      }
+    };
 
-  useEffect(() => {
-    // Update screens based on detected Samsung TVs
-    const newScreens = samsungTVs.map((tv, index) => ({
-      id: index,
-      name: tv.name
-    }));
-    setScreens(newScreens);
-  }, [samsungTVs]);
+    fetchDeviceInfo();
+  }, []);
 
-  const onDragStart = (event: React.DragEvent<HTMLDivElement>, screen: Screen, list: Screen[], setList: React.Dispatch<React.SetStateAction<Screen[]>>) => {
+  const onDragStart = (
+    event: React.DragEvent<HTMLDivElement>, 
+    screen: Screen, 
+    list: Screen[], 
+    setList: React.Dispatch<React.SetStateAction<Screen[]>>
+  ) => {
     setDraggedScreen(screen);
     setSourceList(list);
     setSetSourceListFn(() => setList); // Store the set function to update the source list later
@@ -59,6 +65,12 @@ const Screens: React.FC = () => {
     setDraggedScreen(null);
     setSourceList(null);
     setSetSourceListFn(null);
+  };
+
+  const addScreen = () => {
+    // Add a new screen (for demonstration, we're using a placeholder name and ID)
+    const newScreen: Screen = { id: screens.length, name: `Screen ${screens.length + 1}` };
+    setScreens([...screens, newScreen]);
   };
 
   return (
@@ -100,26 +112,18 @@ const Screens: React.FC = () => {
           ))}
         </div>
 
-
         <button
           type="button"
-          onClick={scanNetwork}
+          onClick={addScreen}
           className="w-[150px] h-10 bg-blue-600 text-white border border-gray-300 rounded-lg cursor-pointer ml-[23%] mt-1"
         >
-          {loading ? 'Escaneando...' : 'Escanear'}
+          Add
         </button>
           
         <div className="mt-5 w-1/2 bg-gray-300 p-2">
-          <h2>Samsung TVs Detected:</h2>
-          {samsungTVs.length > 0 ? (
-            <ul>
-              {samsungTVs.map((tv, index) => (
-                <li key={index}>{tv.name} - {tv.ip}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>No Samsung TVs found.</p>
-          )}
+          <h2>Device Information:</h2>
+          <p>IP Address: {deviceInfo.ip}</p>
+          <p>MAC Address: {deviceInfo.mac}</p>
         </div>
       </div>
     </div>
