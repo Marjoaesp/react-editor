@@ -112,7 +112,7 @@ const Screens: React.FC = () => {
           className="w-[150px] h-10 border border-gray-300 rounded-lg p-2 mb-4"
         />
         <div
-          className="flex flex-row items-start justify-start bg-gray-300 p-2 w-40 h-1/3 overflow-x-auto overflow-y-hidden max-h-[50vh] "
+          className="flex flex-row items-start justify-start bg-gray-300 p-2 mt-1 w-1/2 h-[21%] overflow-x-auto overflow-y-hidden"
           onDragOver={onDragOver}
           onDrop={(e) => onDrop(e, emptyScreens, setEmptyScreens)}
         >
@@ -131,7 +131,7 @@ const Screens: React.FC = () => {
           ))}
         </div>
         <div
-          className="flex flex-row items-start justify-start bg-gray-300 p-2 mt-1 w-1/2 h-1/3 overflow-x-auto overflow-y-hidden"
+          className="flex flex-row items-start justify-start bg-gray-300 p-2 mt-1 w-1/2 h-[21%] overflow-x-auto overflow-y-hidden"
           onDragOver={onDragOver}
           onDrop={(e) => onDrop(e, screens, setScreens)}
         >
