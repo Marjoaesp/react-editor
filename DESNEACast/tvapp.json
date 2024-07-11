@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://i.pinimg.com/736x/c0/66/78/c066789311c873ac7a164d656d5911ae.jpg",
+    "title": "Gato jeje",
+    "displayTime": 6000,
+    "isVideo": false
+  },
+  {
+    "url": "https://i.imgur.com/gGd7ATB.mp4",
+    "title": "",
+    "displayTime": 0,
+    "isVideo": true
+  },
+  {
+    "url": "videos/catdance.mp4",
+    "title": "",
+    "displayTime": 0,
+    "isVideo": true
+  },
+  {
+    "url": "images/helix_nebula.jpg",
+    "title": "Helix Nebula",
+    "displayTime": 5000,
+    "isVideo": false
+  },
+  {
+    "url": "images/carina_nebula.jpg",
+    "title": "Carina Nebula",
+    "displayTime": 5000,
+    "isVideo": false
+  },
+  {
+    "url": "images/milkway.jpg",
+    "title": "Milky Way",
+    "displayTime": 5000,
+    "isVideo": false
+  }
+]
