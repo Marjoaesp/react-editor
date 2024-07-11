@@ -8,7 +8,6 @@ import { saveAs } from 'file-saver';
 interface PlaylistItem {
   type: 'image' | 'video';
   name: string;
-  duration: string;
   dataUrl: string;
 }
 

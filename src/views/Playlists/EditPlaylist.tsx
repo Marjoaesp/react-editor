@@ -94,7 +94,7 @@ const EditPlaylist: React.FC<EditPlaylistProps> = ({ playlist, onSave, onClose }
                 onChange={(e) => {
                   const file = e.target.files?.[0];
                   if (file) {
-                    addItem(file.type.startsWith('image') ? 'image' : 'video', file, '00:00:10');
+                    addItem(file.type.startsWith('image') ? 'image' : 'video', file);
                   }
                 }}
               />
