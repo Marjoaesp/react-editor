@@ -121,7 +121,7 @@ const Screens: React.FC = () => {
               key={screen.id}
               draggable
               onDragStart={(e) => onDragStart(e, screen, emptyScreens, setEmptyScreens)}
-              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[#456C86] text-white cursor-move flex-shrink-0 flex flex-col items-center"
+              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[rgb(24,109,179)] text-white cursor-move flex-shrink-0 flex flex-col items-center"
             >
               <MonitorIcon />
               <div>{screen.name}</div>
@@ -140,7 +140,7 @@ const Screens: React.FC = () => {
               key={screen.id}
               draggable
               onDragStart={(e) => onDragStart(e, screen, screens, setScreens)}
-              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[#456C86] text-white cursor-move flex-shrink-0 flex flex-col items-center"
+              className="select-none p-4 mx-2 w-[200px] min-w-[200px] bg-[#ff4d36] text-white cursor-move flex-shrink-0 flex flex-col items-center"
             >
               <MonitorIcon />
               <div>{screen.name}</div>
