@@ -103,7 +103,7 @@ const Screens: React.FC = () => {
   return (
     <div className="flex h-screen w-screen">
       <SidebarMartin />
-      <div className="flex flex-col items-start mt-12 w-full overflow-hidden">
+      <div className="flex flex-col items-center mt-12 w-full overflow-hidden">
         <input
           type="text"
           value={inputId}
@@ -149,8 +149,8 @@ const Screens: React.FC = () => {
             </div>
           ))}
         </div>
-
-        <button
+          <div className="flex">
+          <button
           type="button"
           onClick={addScreen}
           className="w-[150px] h-10 bg-blue-600 text-white border border-gray-300 rounded-lg cursor-pointer ml-[23%] mt-1"
@@ -164,6 +164,8 @@ const Screens: React.FC = () => {
         >
           Autorun
         </button>
+          </div>
+        
       </div>
     </div>
   );
