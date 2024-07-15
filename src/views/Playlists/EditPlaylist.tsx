@@ -1,29 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Playlist, PlaylistItem } from 'src/types';
+import { saveToLocalStorage, loadFromLocalStorage } from 'src/localstorageHelper';
 
 interface EditPlaylistProps {
   playlist: Playlist;
   onSave: (updated: Playlist) => void;
-  onClose: () => void; // Add onClose to props interface
+  onClose: () => void;
 }
 
 const EditPlaylist: React.FC<EditPlaylistProps> = ({ playlist, onSave, onClose }) => {
-  const [items, setItems] = useState<PlaylistItem[]>(playlist.items);
+  const [items, setItems] = useState<PlaylistItem[]>(playlist.items); // Initialize with playlist.items
+
+  useEffect(() => {
+    // Save playlist to localStorage whenever items change
+    const updatedPlaylist = { ...playlist, items };
+    saveToLocalStorage(`playlist_${playlist.id}`, updatedPlaylist);
+  }, [playlist, items]); // Trigger save whenever playlist or items change
 
   const addItem = (type: 'image' | 'video', file: File) => {
     if (!file) {
       alert("Debe seleccionar un archivo para añadir.");
       return;
     }
-
+  
     const reader = new FileReader();
     reader.onload = (event) => {
       const dataUrl = event.target?.result as string;
       const newItem: PlaylistItem = {
-        type, name: file.name, dataUrl,
-        id: 0
+        type,
+        name: file.name,
+        dataUrl,
+        id: Date.now(),
       };
-      setItems([...items, newItem]);
+      setItems(prevItems => [...prevItems, newItem]);
     };
     reader.readAsDataURL(file);
   };

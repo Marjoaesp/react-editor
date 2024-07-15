@@ -1,7 +1,7 @@
 // Library.tsx
 import React, { useState, useEffect } from 'react';
 import { saveToLocalStorage, loadFromLocalStorage } from 'src/localstorageHelper';
-import SidebarMartin from "~/views/DesignEditor";
+import SidebarMartin from '../DesignEditor/components/SidebarMartin';
 import { LibraryItem } from 'src/types';
 
 const Library: React.FC = () => {

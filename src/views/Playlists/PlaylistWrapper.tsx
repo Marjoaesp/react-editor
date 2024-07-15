@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditPlaylist from './EditPlaylist';
 import SidebarMartin from '../DesignEditor/components/SidebarMartin';
 import Modal from './Modal';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { Playlist } from 'src/types';
+import { saveToLocalStorage, loadFromLocalStorage } from 'src/localstorageHelper';
+
 interface PlaylistItem {
   type: 'image' | 'video';
   name: string;
   dataUrl: string;
 }
-
 
 const PlaylistManager: React.FC = () => {
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
@@ -18,6 +19,17 @@ const PlaylistManager: React.FC = () => {
   const [editingPlaylist, setEditingPlaylist] = useState<Playlist | null>(null);
   const [deletingPlaylist, setDeletingPlaylist] = useState<Playlist | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+
+  // Load playlists from local storage on component mount
+  useEffect(() => {
+    const loadedPlaylists = loadFromLocalStorage('playlists') || [];
+    setPlaylists(loadedPlaylists);
+  }, []);
+
+  // Save playlists to local storage whenever playlists change
+  useEffect(() => {
+    saveToLocalStorage('playlists', playlists);
+  }, [playlists]);
 
   const addPlaylist = (name: string) => {
     const newPlaylist: Playlist = {
@@ -63,6 +75,7 @@ const PlaylistManager: React.FC = () => {
     const content = await zip.generateAsync({ type: 'blob' });
     saveAs(content, `${playlist.name}.zip`);
   };
+
 
   return (
   <div style={{ display: "flex", height: "100vh" }}>
@@ -133,13 +146,13 @@ const PlaylistManager: React.FC = () => {
       )}
       {editingPlaylist && (
         <EditPlaylist
-          playlist={editingPlaylist}
-          onSave={(updated) => {
-            updatePlaylist(updated);
-            setEditingPlaylist(null);
-          }}
-          onClose={() => setEditingPlaylist(null)}
-        />
+            playlist={editingPlaylist}
+            onSave={(updated) => {
+              updatePlaylist(updated);
+              setEditingPlaylist(null);
+            } } onClose={function (): void {
+              throw new Error('Function not implemented.');
+            } }        />
       )}
       {deletingPlaylist && (
         <Modal onClose={() => setDeletingPlaylist(null)}>
