@@ -1,33 +1,55 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"  // Importa componentes para el enrutamiento en React
-import DesignEditor from "~/views/DesignEditor"  // Importa el componente DesignEditor desde la ruta especificada
-import Login from "~/views/Login"  // Importa el componente Dashboard desde la ruta especificada
-import Register from "./views/Register"
-import Screens from "./views/Screen"
-import Getinfo from "./views/Getinfo"
+import React, { useState, useEffect  } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import DesignEditor from '~/views/DesignEditor';
+import Login from '~/views/Login';
+import Register from './views/Register';
+import Screens from './views/Screen';
+import Getinfo from './views/Getinfo';
 import Library from './views/Library';
 import { EditPlaylist, Modal } from './views/Playlists';
 import PlaylistWrapper from './views/Playlists/PlaylistWrapper';
+import SidebarMartin from "~/views/DesignEditor";
+import { saveToLocalStorage, loadFromLocalStorage } from './localstorageHelper';
 
-// Define un componente funcional llamado Router
-function Router() {
+interface LibraryItem {
+  id: number;
+  name: string;
+  dataUrl: string;
+}
+
+interface Playlist {
+  id: number;
+  name: string;
+  items: LibraryItem[];
+}
+
+const Router: React.FC = () => {
+  const [playlists, setPlaylists] = useState<Playlist[]>(loadFromLocalStorage('playlists') || []);
+
+  useEffect(() => {
+    saveToLocalStorage('playlists', playlists);
+  }, [playlists]);
+
+  const handleAddToPlaylist = (item: LibraryItem, playlistId: number) => {
+    setPlaylists((prev) =>
+      prev.map((playlist) =>
+        playlist.id === playlistId ? { ...playlist, items: [...playlist.items, item] } : playlist
+      )
+    );
+  };
+
   return (
-    // Envuelve la aplicación con el BrowserRouter para habilitar la funcionalidad de enrutamiento
-    
     <BrowserRouter>
-      {/* Define las rutas de la aplicación */}
       <Routes>
-        {/* Define una ruta que muestra el componente Dashboard cuando la URL es "/manage" */}
-        <Route path="/Login" element={<Login/>} />
-        <Route path="/Register" element={<Register/>} />
-        <Route path="/Screens" element={<Screens/>} />
-        <Route path="/Playlist" element={<PlaylistWrapper/>} />
-        <Route path="/Library" element={<Library/>} />
-        
-        {/* Define la ruta raíz que muestra el componente DesignEditor cuando la URL es "/" */}
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/Screens" element={<Screens />} />
+        <Route path="/Playlist" element={<PlaylistWrapper />} />
+        <Route path="/Biblioteca" element={<Library playlists={playlists} onAddToPlaylist={handleAddToPlaylist} />} />
         <Route path="/" element={<DesignEditor />} />
       </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default Router  // Exporta el componente Router como el valor predeterminado del módulo
+export default Router;
