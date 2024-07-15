@@ -6,16 +6,15 @@ import { Playlist } from 'src/types';
 interface EditPlaylistRouteProps {
   playlists: Playlist[];
   onSave: (playlist: Playlist) => void;
+  onClose: () => void;
 }
 
-const EditPlaylistRoute: React.FC<EditPlaylistRouteProps> = ({ playlists, onSave }) => {
+const EditPlaylistRoute: React.FC<EditPlaylistRouteProps> = ({ playlists, onSave, onClose }) => {
   const { id } = useParams<{ id: string }>();
   const playlist = playlists.find((p) => p.id === parseInt(id || '', 10));
 
   return playlist ? (
-    <EditPlaylist playlist={playlist} onSave={onSave} onClose={function (): void {
-      throw new Error('Function not implemented.');
-    } } />
+    <EditPlaylist playlist={playlist} onSave={onSave} onClose={onClose} />
   ) : (
     <div>Playlist not found</div>
   );

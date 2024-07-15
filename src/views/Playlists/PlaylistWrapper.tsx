@@ -76,7 +76,6 @@ const PlaylistManager: React.FC = () => {
     saveAs(content, `${playlist.name}.zip`);
   };
 
-
   return (
   <div style={{ display: "flex", height: "100vh" }}>
     <SidebarMartin/>
@@ -150,9 +149,7 @@ const PlaylistManager: React.FC = () => {
             onSave={(updated) => {
               updatePlaylist(updated);
               setEditingPlaylist(null);
-            } } onClose={function (): void {
-              throw new Error('Function not implemented.');
-            } }        />
+            } } onClose={() => setEditingPlaylist(null)}        />
       )}
       {deletingPlaylist && (
         <Modal onClose={() => setDeletingPlaylist(null)}>
