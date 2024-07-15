@@ -4,18 +4,13 @@ import SidebarMartin from '../DesignEditor/components/SidebarMartin';
 import Modal from './Modal';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-
+import { Playlist } from 'src/types';
 interface PlaylistItem {
   type: 'image' | 'video';
   name: string;
   dataUrl: string;
 }
 
-interface Playlist {
-  id: number;
-  name: string;
-  items: PlaylistItem[];
-}
 
 const PlaylistManager: React.FC = () => {
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
