@@ -51,7 +51,7 @@ const Library: React.FC = () => {
   };
 
   return (
-    <div className="p-4" style={{ display: "flex", height: "100vh" }}>
+    <div style={{ display: "flex", height: "100vh" }}>
       <SidebarMartin />
       <div className="p-4 flex-grow">
         <h1 className="text-2xl font-bold mb-4">Library</h1>
