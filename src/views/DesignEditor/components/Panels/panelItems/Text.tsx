@@ -1,5 +1,4 @@
 import { Button, SIZE } from "baseui/button"
-import { textComponents } from "~/constants/editor"
 import { useStyletron } from "styletron-react"
 import { useEditor } from "@layerhub-io/react"
 import { FontItem } from "~/interfaces/common"
@@ -38,32 +37,7 @@ export default function () {
       editor.objects.add<IStaticText>(options)
     }
   }
-  const addComponent = async (component: any) => {
-    if (editor) {
-      const fontItemsList: FontItem[] = []
-      if (component.objects) {
-        component.objects.forEach((object: any) => {
-          if (object.type === "StaticText" || object.type === "DynamicText") {
-            fontItemsList.push({
-              name: object.fontFamily,
-              url: object.fontURL,
-            })
-          }
-        })
-        const filteredFonts = fontItemsList.filter((f) => !!f.url)
-        await loadFonts(filteredFonts)
-      } else {
-        if (component.type === "StaticText" || component.type === "DynamicText") {
-          fontItemsList.push({
-            name: component.fontFamily,
-            url: component.fontURL,
-          })
-          await loadFonts(fontItemsList)
-        }
-      }
-      editor.objects.add(component)
-    }
-  }
+
   return (
     <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <Block
@@ -105,9 +79,6 @@ export default function () {
               gap: "8px",
             }}
           >
-            {[...textComponents].map((tc) => (
-              <TextComponentItem onClick={addComponent} key={tc.id} component={tc} />
-            ))}
           </Block>
         </Block>
       </Scrollable>
