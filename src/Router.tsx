@@ -35,7 +35,9 @@ const Router: React.FC = () => {
         <Route path="/Screens" element={<Screens />} />
         <Route path="/Playlist" element={<PlaylistWrapper />} />
         <Route path="/Biblioteca" element={<Library />} />
-        <Route path="/EditPlaylist/:id" element={<EditPlaylistRoute playlists={playlists} onSave={handleSavePlaylist} />} />
+        <Route path="/EditPlaylist/:id" element={<EditPlaylistRoute playlists={playlists} onSave={handleSavePlaylist} onClose={function (): void {
+          throw new Error('Function not implemented.');
+        } } />} />
 
         <Route path="/" element={<DesignEditor />} />
       </Routes>
