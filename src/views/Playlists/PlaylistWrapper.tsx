@@ -1,21 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditPlaylist from './EditPlaylist';
 import SidebarMartin from '../DesignEditor/components/SidebarMartin';
 import Modal from './Modal';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import { Playlist } from 'src/types';
+import { saveToLocalStorage, loadFromLocalStorage } from 'src/localstorageHelper';
 
 interface PlaylistItem {
   type: 'image' | 'video';
   name: string;
-  duration: string;
   dataUrl: string;
-}
-
-interface Playlist {
-  id: number;
-  name: string;
-  items: PlaylistItem[];
 }
 
 const PlaylistManager: React.FC = () => {
@@ -24,6 +19,17 @@ const PlaylistManager: React.FC = () => {
   const [editingPlaylist, setEditingPlaylist] = useState<Playlist | null>(null);
   const [deletingPlaylist, setDeletingPlaylist] = useState<Playlist | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+
+  // Load playlists from local storage on component mount
+  useEffect(() => {
+    const loadedPlaylists = loadFromLocalStorage('playlists') || [];
+    setPlaylists(loadedPlaylists);
+  }, []);
+
+  // Save playlists to local storage whenever playlists change
+  useEffect(() => {
+    saveToLocalStorage('playlists', playlists);
+  }, [playlists]);
 
   const addPlaylist = (name: string) => {
     const newPlaylist: Playlist = {
@@ -139,13 +145,11 @@ const PlaylistManager: React.FC = () => {
       )}
       {editingPlaylist && (
         <EditPlaylist
-          playlist={editingPlaylist}
-          onSave={(updated) => {
-            updatePlaylist(updated);
-            setEditingPlaylist(null);
-          }}
-          onClose={() => setEditingPlaylist(null)}
-        />
+            playlist={editingPlaylist}
+            onSave={(updated) => {
+              updatePlaylist(updated);
+              setEditingPlaylist(null);
+            } } onClose={() => setEditingPlaylist(null)}        />
       )}
       {deletingPlaylist && (
         <Modal onClose={() => setDeletingPlaylist(null)}>
