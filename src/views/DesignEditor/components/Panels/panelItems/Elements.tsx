@@ -60,7 +60,7 @@ function ImageItem({ preview, onClick }: { preview: any; onClick?: (option: any)
         position: "relative",
         background: "#f8f8fb",
         cursor: "pointer",
-        borderRadius: "8px",
+        
         overflow: "hidden",
         ":hover": {
           opacity: 1,
