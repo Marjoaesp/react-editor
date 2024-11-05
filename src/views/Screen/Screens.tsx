@@ -109,7 +109,7 @@ const Screens: React.FC = () => {
         </button>
 
         <div className="mt-5 w-1/2 bg-gray-300 p-2">
-          <h2>Samsung TVs Detected:</h2>
+          <h2>Samsung TVs Detectadas:</h2>
           {samsungTVs.length > 0 ? (
             <ul>
               {samsungTVs.map((tv, index) => (
@@ -117,7 +117,7 @@ const Screens: React.FC = () => {
               ))}
             </ul>
           ) : (
-            <p>No Samsung TVs found.</p>
+            <p>No Samsung TVs Detectadas.</p>
           )}
         </div>
       </div>

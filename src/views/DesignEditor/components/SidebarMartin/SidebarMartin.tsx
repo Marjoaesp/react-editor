@@ -21,7 +21,7 @@ const SidebarMartin = () => {
     <div className={`flex transition-width duration-300 ${sidebarWidth}`}>
       <Sidebar collapsed={!isOpen} className="transition-width duration-300">
         {/* Condición para mostrar UserProfile solo si el sidebar está abierto */}
-        {isOpen && <UserProfile username="Martin Parisi" />}
+        {isOpen && <UserProfile username="User Name" />}
 
         {/* Condición para mostrar el menú solo si el sidebar está abierto */}
         {isOpen && (
@@ -36,7 +36,7 @@ const SidebarMartin = () => {
               <MenuItem>
                 <Link to="/playlist" className="flex items-center no-underline text-gray-800">
                   <Playlist size={24} style={iconStyle} />
-                  <span className="ml-1 align-middle leading-6">Playlist</span>
+                  <span className="ml-1 align-middle leading-6">Listas de reproducciones</span>
                 </Link>
               </MenuItem>
               <MenuItem>

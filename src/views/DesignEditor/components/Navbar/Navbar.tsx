@@ -163,7 +163,7 @@ export default function () {
               },
             }}
           >
-            Export
+            Exportar
           </Button>
           <Button
             size="compact"

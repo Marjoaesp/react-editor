@@ -27,8 +27,8 @@ const PlaylistSelectionModal: React.FC<PlaylistSelectionModalProps> = ({ library
   return (
     <Modal onClose={onClose}>
       <div>
-        <h2 className="text-xl font-bold mb-4">Add to Playlist</h2>
-        <p>Select playlists to add '{libraryItem.name}' to:</p>
+        <h2 className="text-xl font-bold mb-4">Agregar a Lista de Reproducción</h2>
+        <p>Seleccionar la lista de reproducción para agregar '{libraryItem.name}'</p>
         <div className="max-h-64 overflow-y-auto">
           {playlists.map((playlist) => (
             <div key={playlist.id} className="flex items-center my-2">
@@ -46,13 +46,13 @@ const PlaylistSelectionModal: React.FC<PlaylistSelectionModalProps> = ({ library
             className="bg-gray-500 text-white px-4 py-2 rounded"
             onClick={onClose}
           >
-            Cancel
+            Cancelar
           </button>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded"
             onClick={() => onSave(selectedPlaylists)}
           >
-            Save
+            Guardar
           </button>
         </div>
       </div>

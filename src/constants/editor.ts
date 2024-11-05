@@ -197,7 +197,7 @@ export const SAMPLE_TEMPLATES = [
     "preview": "https://i.ibb.co/0JpLBg7/1text.png"
   },
   {
-    "id": "DYfItP-qnD8VAIuKr2UAD",
+    "id": "dvu7WziK-2Ba-_MgI00p2",
     "type": "GRAPHIC",
     "name": "Untitled Design",
     "frame": {
@@ -238,7 +238,7 @@ export const SAMPLE_TEMPLATES = [
         "metadata": {}
         },
         {
-        "id": "JMgmT6yCmMZ35YWEp31Sk",
+        "id": "oydDtqzmxgdxBSC4panKj",
         "name": "StaticImage",
         "angle": 0,
         "stroke": null,
@@ -259,21 +259,21 @@ export const SAMPLE_TEMPLATES = [
         "skewY": 0,
         "visible": true,
         "shadow": null,
-        "src": "blob:http://127.0.0.1:5173/9b0188de-7d66-4a55-a81e-58b6691c4797",
+        "src": "https://i.postimg.cc/YkNTrXkn/img3.jpg",
         "cropX": 0,
         "cropY": 0,
         "metadata": {}
         },
         {
-        "id": "ndPRb5M0c5l-FexvQyROP",
+        "id": "9B1a8NaXaa73gFJdehafF",
         "name": "StaticText",
         "angle": 0,
         "stroke": null,
         "strokeWidth": 0,
-        "left": 404.86,
-        "top": 865.71,
-        "width": 1088.58,
-        "height": 165.99,
+        "left": 168,
+        "top": 100.85,
+        "width": 1532.39,
+        "height": 135.89,
         "opacity": 1,
         "originX": "left",
         "originY": "top",
@@ -287,19 +287,18 @@ export const SAMPLE_TEMPLATES = [
         "visible": true,
         "shadow": null,
         "charSpacing": 0,
-        "fill": "#d9d9d9",
-        "fontFamily": "OpenSans-Regular",
-        "fontSize": 146.89486792827498,
+        "fill": "#FFFF",
+        "fontFamily": "OpenSans-Bold",
+        "fontSize": 120.26092136310517,
         "lineHeight": 1.16,
-        "text": "Agregar Texto",
+        "text": "Agregar texto",
         "textAlign": "center",
-        "fontURL": "https://fonts.gstatic.com/s/opensans/v27/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0C4nY1M2xLER.ttf",
-        "metadata": {}
+        "fontURL": "https://fonts.gstatic.com/s/opensans/v27/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1y4nY1M2xLER.ttf"
         }
     ],
     "metadata": {},
-    "preview": "https://i.ibb.co/VJRPPLv/image.png"
-  },
+    "preview": "https://i.ibb.co/Dpm2jsj/image.png"
+  }
 ]
 
 export const editorFonts = [

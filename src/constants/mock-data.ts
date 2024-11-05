@@ -377,6 +377,31 @@ export const images = [
     alt: "Photo of Bridge Under White Clouds",
   },
   {
+    id: 3493777,
+    width: 3000,
+    height: 3000,
+    url: "https://upload.wikimedia.org/wikipedia/commons/8/85/Plaza_25_de_mayo_Corrientes.jpeg",
+    photographer: "Aleksey Kuprikov",
+    photographer_url: "https://www.pexels.com/@aleksey-kuprikov-1883853",
+    photographer_id: 1883853,
+    avg_color: "#6B7874",
+    src: {
+      original: "https://upload.wikimedia.org/wikipedia/commons/8/85/Plaza_25_de_mayo_Corrientes.jpeg",
+      large2x:
+        "https://upload.wikimedia.org/wikipedia/commons/8/85/Plaza_25_de_mayo_Corrientes.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      large: "https://upload.wikimedia.org/wikipedia/commons/8/85/Plaza_25_de_mayo_Corrientes.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+      medium: "https://upload.wikimedia.org/wikipedia/commons/8/85/Plaza_25_de_mayo_Corrientes.jpeg?auto=compress&cs=tinysrgb&h=350",
+      small: "https://upload.wikimedia.org/wikipedia/commons/8/85/Plaza_25_de_mayo_Corrientes.jpeg?auto=compress&cs=tinysrgb&h=130",
+      portrait:
+        "https://upload.wikimedia.org/wikipedia/commons/8/85/Plaza_25_de_mayo_Corrientes.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+      landscape:
+        "https://upload.wikimedia.org/wikipedia/commons/8/85/Plaza_25_de_mayo_Corrientes.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+      tiny: "https://upload.wikimedia.org/wikipedia/commons/8/85/Plaza_25_de_mayo_Corrientes.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280",
+    },
+    liked: false,
+    alt: "Photo of Corrientes",
+  },
+  {
     id: 1683492,
     width: 3648,
     height: 3648,

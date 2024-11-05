@@ -11,7 +11,7 @@ interface State {
 }
 
 export default function () {
-  const [state, setState] = React.useState<State>({ name: "My first design.", width: 0 })
+  const [state, setState] = React.useState<State>({ name: "Mi Diseño.", width: 0 })
   const { currentDesign, setCurrentDesign } = useDesignEditorContext()
   const inputTitleRef = React.useRef<Input>(null)
   const spanRef = React.useRef<HTMLDivElement | null>(null)

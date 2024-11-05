@@ -80,7 +80,7 @@ const PlaylistManager: React.FC = () => {
   <div style={{ display: "flex", height: "100vh" }}>
     <SidebarMartin/>
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Playlists</h1>
+      <h1 className="text-2xl font-bold mb-4">Listas de reproducción</h1>
       <button
         onClick={() => setIsCreating(true)}
         className="bg-blue-500 text-white p-2 rounded mb-4"
